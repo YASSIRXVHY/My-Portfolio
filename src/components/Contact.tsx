@@ -96,7 +96,7 @@ const Contact = () => {
                     htmlFor="name"
                     className="block text-sm font-medium text-gray-900 mb-2"
                   >
-                    Yassir Gattoa
+                    Name
                   </label>
                   <input
                     type="text"
