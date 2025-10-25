@@ -133,8 +133,9 @@ const Hero = () => {
                 View Projects
               </button>
 
+              {/* UPDATED: Download CV Button with correct PDF path */}
               <a
-                href="/cv.pdf"
+                href="/MY CV FINAL.pdf"
                 download="Yassir_Gattoa_CV.pdf"
                 className="group px-8 py-4 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-full font-medium hover:from-gray-800 hover:to-gray-900 transition-all shadow-lg hover:shadow-xl"
               >
