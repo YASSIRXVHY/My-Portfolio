@@ -65,7 +65,7 @@ const Contact = () => {
                     href="mailto:your.email@example.com" 
                     className="text-gray-600 hover:text-blue-600 transition-colors"
                   >
-                    your.email@example.com
+                    yassirgattoa@gmail.com
                   </a>
                 </div>
               </div>
@@ -80,7 +80,7 @@ const Contact = () => {
                     href="tel:+1234567890" 
                     className="text-gray-600 hover:text-blue-600 transition-colors"
                   >
-                    +1 (234) 567-890
+                    +212 772529274
                   </a>
                 </div>
               </div>
@@ -92,7 +92,7 @@ const Contact = () => {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">Location</h3>
                   <p className="text-gray-600">
-                    Your City, Country
+                    Morocco, Tangier
                   </p>
                 </div>
               </div>
