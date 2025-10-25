@@ -142,7 +142,7 @@ const Hero = () => {
           <FadeInSection delay={500}>
             <div className="flex items-center justify-center gap-6 mb-16">
               <a
-                href="https://github.com"
+                href="https://github.com/YASSIRXVHY"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative w-14 h-14 flex items-center justify-center rounded-full bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all shadow-md hover:shadow-lg"
@@ -150,7 +150,7 @@ const Hero = () => {
                 <Github size={22} className="group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/yassir-gattoa-53b9782aa/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative w-14 h-14 flex items-center justify-center rounded-full bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all shadow-md hover:shadow-lg"
@@ -158,7 +158,7 @@ const Hero = () => {
                 <Linkedin size={22} className="group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:yassirgattoa@gmail.com"
                 className="group relative w-14 h-14 flex items-center justify-center rounded-full bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all shadow-md hover:shadow-lg"
               >
                 <Mail size={22} className="group-hover:scale-110 transition-transform" />
