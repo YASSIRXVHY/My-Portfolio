@@ -48,7 +48,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-24 bg-gradient-to-br from-white via-blue-50 to-white">
+    <section id="experience" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
           <FadeInSection>

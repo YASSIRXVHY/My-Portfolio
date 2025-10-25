@@ -39,7 +39,8 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <section id="about" className="py-24 relative overflow-hidden">
+
       {/* Decorative Elements */}
       <div className="absolute top-20 right-0 w-64 h-64 bg-blue-100 rounded-full filter blur-3xl opacity-30"></div>
       <div className="absolute bottom-20 left-0 w-64 h-64 bg-purple-100 rounded-full filter blur-3xl opacity-30"></div>
