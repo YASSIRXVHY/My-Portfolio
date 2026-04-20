@@ -1,22 +1,31 @@
-import { Heart, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-black text-white py-16">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
-              <h3 className="text-2xl font-bold mb-4">Portfolio</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Programmer and English Teacher, passionate about technology and
-                education.
+              <h3 className="text-xl font-bold mb-4">Yassir Gattoa</h3>
+              <p className="text-neutral-400 leading-relaxed text-sm">
+                Programmer, English Teacher, and Founder of Abyssal Academy.
+                Passionate about technology and education.
               </p>
+              <a
+                href="https://abyssalacademy.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-6 text-sm text-neutral-300 hover:text-white transition-colors"
+              >
+                <ExternalLink size={14} />
+                Visit Abyssal Academy
+              </a>
             </div>
 
             <div>
-              <h4 className="text-lg font-bold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
+              <h4 className="text-sm font-bold uppercase tracking-wider mb-4">Quick Links</h4>
+              <ul className="space-y-3">
                 {['About', 'Skills', 'Experience', 'Portfolio', 'Contact'].map(
                   (item) => (
                     <li key={item}>
@@ -27,7 +36,7 @@ const Footer = () => {
                           );
                           element?.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-sm text-neutral-400 hover:text-white transition-colors"
                       >
                         {item}
                       </button>
@@ -38,13 +47,13 @@ const Footer = () => {
             </div>
 
             <div>
-              <h4 className="text-lg font-bold mb-4">Connect</h4>
+              <h4 className="text-sm font-bold uppercase tracking-wider mb-4">Connect</h4>
               <div className="flex gap-4">
                 <a
                   href="https://github.com/YASSIRXVHY"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-blue-600 transition-colors"
+                  className="w-10 h-10 flex items-center justify-center border border-neutral-700 text-neutral-400 hover:text-white hover:border-white transition-colors"
                 >
                   <Github size={18} />
                 </a>
@@ -52,13 +61,13 @@ const Footer = () => {
                   href="https://www.linkedin.com/in/yassir-gattoa-53b9782aa/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-blue-600 transition-colors"
+                  className="w-10 h-10 flex items-center justify-center border border-neutral-700 text-neutral-400 hover:text-white hover:border-white transition-colors"
                 >
                   <Linkedin size={18} />
                 </a>
                 <a
-                  href="yassirgattoa@gmail.com"
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-blue-600 transition-colors"
+                  href="mailto:yassirgattoa@gmail.com"
+                  className="w-10 h-10 flex items-center justify-center border border-neutral-700 text-neutral-400 hover:text-white hover:border-white transition-colors"
                 >
                   <Mail size={18} />
                 </a>
@@ -66,13 +75,9 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-gray-400 flex items-center justify-center gap-2">
-              Made with <Heart size={16} className="text-red-500" /> Yassir
-              Gattoa
-            </p>
-            <p className="text-gray-500 text-sm mt-2">
-              {new Date().getFullYear()} All rights reserved.
+          <div className="border-t border-neutral-800 pt-8 text-center">
+            <p className="text-neutral-500 text-sm">
+              {new Date().getFullYear()} Yassir Gattoa. All rights reserved.
             </p>
           </div>
         </div>

@@ -1,125 +1,70 @@
 import { Code, GraduationCap } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import FadeInSection from './FadeInSection';
 
 const Skills = () => {
   const technicalSkills = [
-    { name: 'JavaScript', level: 90 },
-    { name: 'TypeScript', level: 85 },
-    { name: 'React', level: 88 },
-    { name: 'Node.js', level: 82 },
-    { name: 'Python', level: 80 },
-    { name: 'SQL', level: 85 },
+    'JavaScript / TypeScript',
+    'React & Next.js',
+    'Node.js & Python',
+    'SQL & Databases',
+    'Tailwind CSS',
+    'Git & DevOps',
   ];
 
   const teachingSkills = [
-    { name: 'English Grammar', level: 95 },
-    { name: 'Communication', level: 92 },
-    { name: 'Curriculum Design', level: 88 },
-    { name: 'Student Engagement', level: 90 },
-    { name: 'Assessment', level: 87 },
-    { name: 'Classroom Management', level: 89 },
+    'English Grammar',
+    'Business English',
+    'IELTS Preparation',
+    'Curriculum Design',
+    'Online Teaching',
+    'Student Assessment',
   ];
 
-  const AnimatedNumber = ({ target }: { target: number }) => {
-    const [count, setCount] = useState(0);
-    const [hasAnimated, setHasAnimated] = useState(false);
-    const elementRef = useRef<HTMLSpanElement>(null);
-
-    useEffect(() => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !hasAnimated) {
-            setHasAnimated(true);
-            let startTimestamp: number | null = null;
-            const duration = 2000; // 2 seconds
-
-            const step = (timestamp: number) => {
-              if (!startTimestamp) startTimestamp = timestamp;
-              const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-              
-              setCount(Math.floor(progress * target));
-
-              if (progress < 1) {
-                window.requestAnimationFrame(step);
-              }
-            };
-
-            window.requestAnimationFrame(step);
-          }
-        },
-        { threshold: 0.5 }
-      );
-
-      if (elementRef.current) {
-        observer.observe(elementRef.current);
-      }
-
-      return () => {
-        if (elementRef.current) {
-          observer.unobserve(elementRef.current);
-        }
-      };
-    }, [target, hasAnimated]);
-
-    return <span ref={elementRef}>{count}</span>;
-  };
-
-  const SkillBar = ({ name, level }: { name: string; level: number }) => (
-    <div className="mb-6">
-      <div className="flex justify-between mb-2">
-        <span className="text-gray-900 font-medium">{name}</span>
-        <span className="text-blue-600 font-medium">
-          <AnimatedNumber target={level} />%
-        </span>
-      </div>
-      <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-1000"
-          style={{ width: `${level}%` }}
-        ></div>
-      </div>
-    </div>
-  );
-
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
+    <section id="skills" className="py-24 bg-neutral-50">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Skills & Expertise
-            </h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
-          </div>
+          <FadeInSection>
+            <div className="text-center mb-16">
+              <p className="text-sm tracking-widest uppercase text-neutral-500 mb-4">What I do best</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
+                Skills & Expertise
+              </h2>
+            </div>
+          </FadeInSection>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg mr-3 flex items-center justify-center">
-                  <Code className="text-blue-600" size={20} />
+            <FadeInSection>
+              <div className="bg-white p-8 border border-neutral-200">
+                <h3 className="text-xl font-bold text-black mb-8 flex items-center gap-3">
+                  <Code size={24} className="text-neutral-600" />
+                  Technical Skills
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {technicalSkills.map((skill, index) => (
+                    <div key={index} className="p-4 border border-neutral-100 hover:border-neutral-300 transition-colors">
+                      <span className="text-neutral-700 text-sm font-medium">{skill}</span>
+                    </div>
+                  ))}
                 </div>
-                Technical Skills
-              </h3>
-              <div>
-                {technicalSkills.map((skill, index) => (
-                  <SkillBar key={index} name={skill.name} level={skill.level} />
-                ))}
               </div>
-            </div>
+            </FadeInSection>
 
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
-                <div className="w-10 h-10 bg-green-100 rounded-lg mr-3 flex items-center justify-center">
-                  <GraduationCap className="text-green-600" size={20} />
+            <FadeInSection delay={200}>
+              <div className="bg-white p-8 border border-neutral-200">
+                <h3 className="text-xl font-bold text-black mb-8 flex items-center gap-3">
+                  <GraduationCap size={24} className="text-neutral-600" />
+                  Teaching Skills
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {teachingSkills.map((skill, index) => (
+                    <div key={index} className="p-4 border border-neutral-100 hover:border-neutral-300 transition-colors">
+                      <span className="text-neutral-700 text-sm font-medium">{skill}</span>
+                    </div>
+                  ))}
                 </div>
-                Teaching Skills
-              </h3>
-              <div>
-                {teachingSkills.map((skill, index) => (
-                  <SkillBar key={index} name={skill.name} level={skill.level} />
-                ))}
               </div>
-            </div>
+            </FadeInSection>
           </div>
         </div>
       </div>

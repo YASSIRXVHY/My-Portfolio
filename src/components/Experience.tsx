@@ -1,10 +1,23 @@
-import { Briefcase, GraduationCap, Calendar, Building2, Sparkles } from 'lucide-react';
+import { Briefcase, GraduationCap, Calendar, Building2, Globe } from 'lucide-react';
 import FadeInSection from './FadeInSection';
 
 const Experience = () => {
   const experiences = [
     {
-      type: 'programming',
+      icon: Globe,
+      title: 'Founder & Lead Instructor',
+      organization: 'Abyssal Academy',
+      period: '2024 - Present',
+      description:
+        'Founded and operate Abyssal Academy, an online English learning platform. Teaching English to students worldwide while managing curriculum development, platform operations, and student success.',
+      highlights: [
+        'Founded and launched Abyssal Academy online platform',
+        'Teaching 200+ students from diverse backgrounds',
+        'Developed comprehensive online curriculum for all levels',
+        'Managing all aspects of the academy operations',
+      ],
+    },
+    {
       icon: Briefcase,
       title: 'Software Developer',
       organization: 'Tech Company',
@@ -18,7 +31,6 @@ const Experience = () => {
       ],
     },
     {
-      type: 'teaching',
       icon: GraduationCap,
       title: 'Teacher of English',
       organization: 'Okole Dahabia',
@@ -32,7 +44,6 @@ const Experience = () => {
       ],
     },
     {
-      type: 'programming',
       icon: Briefcase,
       title: 'Junior Developer',
       organization: 'Freelancer',
@@ -48,155 +59,76 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-24 relative overflow-hidden">
+    <section id="experience" className="py-24 bg-neutral-50">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <FadeInSection>
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              <p className="text-sm tracking-widest uppercase text-neutral-500 mb-4">My journey</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
                 Experience
               </h2>
-              <div className="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
-              <p className="text-lg text-gray-600">
-                My journey through technology and education
-              </p>
             </div>
           </FadeInSection>
 
-          <div className="relative">
-            {/* Animated Timeline */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 via-blue-600 to-blue-400 transform md:-translate-x-1/2 rounded-full shadow-lg"></div>
-
-            <div className="space-y-16">
-              {experiences.map((exp, index) => (
-                <FadeInSection key={index} delay={index * 150}>
-                  <div
-                    className={`relative flex flex-col md:flex-row gap-8 ${
-                      index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                    }`}
-                  >
-                    {/* Timeline Dot with Animation */}
-                    <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 -translate-y-2">
-                      <div className="relative">
-                        <div className="w-6 h-6 bg-white rounded-full border-4 border-blue-600 shadow-lg z-10 relative">
-                          <div className="absolute inset-0 bg-blue-600 rounded-full animate-ping opacity-75"></div>
-                        </div>
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                          <Sparkles className="text-blue-600 w-3 h-3" />
-                        </div>
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <FadeInSection key={index} delay={index * 100}>
+                <div className="bg-white p-8 border border-neutral-200 hover:border-black transition-colors">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-black text-white flex items-center justify-center flex-shrink-0">
+                      <exp.icon size={24} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 text-neutral-500 text-sm mb-1">
+                        <Calendar size={14} />
+                        <span>{exp.period}</span>
+                      </div>
+                      <h3 className="text-xl font-bold text-black mb-1">
+                        {exp.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-neutral-600">
+                        <Building2 size={14} />
+                        <p className="text-sm font-medium">{exp.organization}</p>
                       </div>
                     </div>
-
-                    {/* Content Card */}
-                    <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'}`}>
-                      <div
-                        className={`relative rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group ${
-                          exp.type === 'programming'
-                            ? 'bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100'
-                            : 'bg-gradient-to-br from-green-50 to-white border-2 border-green-100'
-                        }`}
-                      >
-                        {/* Decorative Corner Element */}
-                        <div
-                          className={`absolute top-0 right-0 w-24 h-24 transform translate-x-8 -translate-y-8 rounded-full opacity-20 ${
-                            exp.type === 'programming' ? 'bg-blue-400' : 'bg-green-400'
-                          }`}
-                        ></div>
-
-                        {/* Header */}
-                        <div className="flex items-start gap-4 mb-6 relative z-10">
-                          <div
-                            className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-110 transition-transform duration-300 ${
-                              exp.type === 'programming'
-                                ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
-                                : 'bg-gradient-to-br from-green-500 to-green-600 text-white'
-                            }`}
-                          >
-                            <exp.icon size={28} />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                              {exp.title}
-                            </h3>
-                            <div className="flex items-center gap-2 text-gray-600 mb-2">
-                              <Building2 size={16} />
-                              <p className="text-sm font-medium">{exp.organization}</p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Calendar size={16} className="text-blue-600" />
-                              <p className="text-sm font-semibold text-blue-600">
-                                {exp.period}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-gray-700 mb-6 leading-relaxed relative z-10">
-                          {exp.description}
-                        </p>
-
-                        {/* Highlights with Enhanced Design */}
-                        <div className="space-y-3 relative z-10">
-                          <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3">
-                            Key Achievements
-                          </h4>
-                          {exp.highlights.map((highlight, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-start gap-3 group/item"
-                            >
-                              <div
-                                className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 shadow-sm ${
-                                  exp.type === 'programming'
-                                    ? 'bg-blue-600'
-                                    : 'bg-green-600'
-                                }`}
-                              ></div>
-                              <p className="text-sm text-gray-700 group-hover/item:text-gray-900 transition-colors">
-                                {highlight}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Animated Border Effect */}
-                        <div
-                          className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                            exp.type === 'programming'
-                              ? 'bg-gradient-to-r from-blue-400/20 via-transparent to-blue-400/20'
-                              : 'bg-gradient-to-r from-green-400/20 via-transparent to-green-400/20'
-                          }`}
-                        ></div>
-                      </div>
-                    </div>
-
-                    {/* Empty space for alternating layout */}
-                    <div className="hidden md:block md:w-1/2"></div>
                   </div>
-                </FadeInSection>
-              ))}
-            </div>
+
+                  <p className="text-neutral-600 mb-6 leading-relaxed">
+                    {exp.description}
+                  </p>
+
+                  <div className="space-y-2">
+                    {exp.highlights.map((highlight, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 bg-black mt-2 flex-shrink-0"></div>
+                        <p className="text-sm text-neutral-600">{highlight}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeInSection>
+            ))}
           </div>
 
           {/* Stats Section */}
           <FadeInSection delay={500}>
-            <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-3xl font-bold text-blue-600 mb-2">3+</div>
-                <div className="text-sm text-gray-600 font-medium">Years Experience</div>
+            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center p-6 bg-white border border-neutral-200">
+                <div className="text-3xl font-bold text-black mb-1">4+</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">Years</div>
               </div>
-              <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-3xl font-bold text-green-600 mb-2">200+</div>
-                <div className="text-sm text-gray-600 font-medium">Students Taught</div>
+              <div className="text-center p-6 bg-white border border-neutral-200">
+                <div className="text-3xl font-bold text-black mb-1">200+</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">Students</div>
               </div>
-              <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-3xl font-bold text-purple-600 mb-2">15+</div>
-                <div className="text-sm text-gray-600 font-medium">Projects Completed</div>
+              <div className="text-center p-6 bg-white border border-neutral-200">
+                <div className="text-3xl font-bold text-black mb-1">15+</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">Projects</div>
               </div>
-              <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-3xl font-bold text-orange-600 mb-2">40%</div>
-                <div className="text-sm text-gray-600 font-medium">Performance Boost</div>
+              <div className="text-center p-6 bg-white border border-neutral-200">
+                <div className="text-3xl font-bold text-black mb-1">1</div>
+                <div className="text-xs text-neutral-500 uppercase tracking-wider">Academy</div>
               </div>
             </div>
           </FadeInSection>
