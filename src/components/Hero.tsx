@@ -1,5 +1,5 @@
-import { Github, Linkedin, Mail, ExternalLink, ArrowRight } from 'lucide-react';
-import FadeInSection from './FadeInSection';
+import { Mail, ArrowRight, Github, Linkedin } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -10,105 +10,104 @@ const Hero = () => {
   };
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center bg-black text-white pt-20"
-    >
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="max-w-4xl">
-          <FadeInSection>
-            <p className="text-xs tracking-[0.4em] uppercase text-neutral-500 mb-8">
-              Programmer & Educator
-            </p>
-          </FadeInSection>
-
-          <FadeInSection delay={100}>
-            <h1 className="text-[clamp(2.8rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em] mb-8">
-              Yassir Gattoa
-            </h1>
-          </FadeInSection>
-
-          <FadeInSection delay={200}>
-            <p className="text-neutral-400 text-lg md:text-xl max-w-lg mb-12 leading-relaxed">
-              I build elegant web applications and empower students to master English.
-              Founder of Abyssal Academy.
-            </p>
-          </FadeInSection>
-
-          <FadeInSection delay={300}>
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-sm tracking-[0.15em] uppercase font-medium hover:bg-neutral-200 transition-colors"
-              >
-                Let's Talk
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button
-                onClick={() => scrollToSection('portfolio')}
-                className="px-8 py-4 text-sm tracking-[0.15em] uppercase font-medium border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
-              >
-                View Projects
-              </button>
-            </div>
-          </FadeInSection>
-
-          <FadeInSection delay={400}>
-            <div className="flex items-center gap-6 mb-16">
-              <a
-                href="https://github.com/YASSIRXVHY"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-500 hover:text-white transition-colors"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/yassir-gattoa-53b9782aa/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-500 hover:text-white transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="mailto:yassirgattoa@gmail.com"
-                className="text-neutral-500 hover:text-white transition-colors"
-              >
-                <Mail size={20} />
-              </a>
-              <a
-                href="https://abyssalacademy.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-neutral-500 hover:text-white transition-colors text-sm"
-              >
-                <ExternalLink size={14} />
-                Abyssal Academy
-              </a>
-            </div>
-          </FadeInSection>
-
-          {/* Stats */}
-          <FadeInSection delay={500}>
-            <div className="flex gap-8 pt-8 border-t border-neutral-800">
-              <div>
-                <div className="text-2xl font-bold text-white">4+</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider mt-1">Years</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-white">15+</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider mt-1">Projects</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-white">200+</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider mt-1">Students</div>
-              </div>
-            </div>
-          </FadeInSection>
+    <section id="home" className="relative pt-24 pb-8 px-4 md:px-8 bg-black min-h-screen flex flex-col overflow-hidden items-center justify-center">
+      {/* Floating Island Card */}
+      <motion.div 
+        initial={{ y: 40, scale: 0.95, opacity: 0 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.01, translateY: -5 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full max-w-7xl flex-grow rounded-[2.5rem] md:rounded-[4rem] bg-[#0A0F1C] border border-white/10 hover:border-primary-500/30 transition-all duration-700 ease-out shadow-[0_0_0_rgba(0,0,0,0)] hover:shadow-[0_20px_80px_rgba(37,99,235,0.15)] flex flex-col items-center justify-center overflow-hidden group"
+      >
+        {/* Background Grid Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+          {/* Subtle blue glow dots at grid intersections */}
+          <div className="absolute top-[8rem] left-[8rem] w-1.5 h-1.5 bg-primary-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+          <div className="absolute top-[16rem] right-[16rem] w-1.5 h-1.5 bg-primary-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+          <div className="absolute bottom-[8rem] left-[24rem] w-1.5 h-1.5 bg-primary-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
         </div>
-      </div>
+
+        {/* Ambient Top Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center max-w-4xl px-4 py-24 md:py-32 flex flex-col items-center">
+          
+          {/* Top Pill Badge */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="inline-flex items-center gap-3 px-1.5 py-1.5 pr-4 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md cursor-pointer hover:bg-white/10 transition-colors"
+          >
+            <span className="bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-full">New</span>
+            <span className="text-sm font-medium text-neutral-300">Available for new opportunities</span>
+            <ArrowRight size={14} className="text-neutral-400" />
+          </motion.div>
+
+          {/* Headline - Elegant Serif */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif text-white tracking-tight leading-[1.05] mb-6"
+          >
+            Developer that<br />
+            <span className="italic opacity-90">drives impact</span>
+          </motion.h1>
+          
+          {/* Subtitle */}
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-neutral-400 text-lg md:text-xl font-medium mb-12 max-w-2xl"
+          >
+            I'm Yassir Gattoa. I build scalable software, integrate AI systems, and design interfaces loved by users.
+          </motion.p>
+
+          {/* CTA Email Mimic Pill */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="flex items-center w-full max-w-md bg-white rounded-full p-1.5 shadow-[0_0_40px_rgba(37,99,235,0.15)] mb-12"
+          >
+            <div className="flex-grow flex items-center px-4">
+              <Mail size={18} className="mr-3 text-neutral-400" />
+              <input 
+                type="text" 
+                readOnly 
+                value="yassirgattoa@gmail.com" 
+                className="bg-transparent outline-none w-full text-sm font-medium text-neutral-800" 
+              />
+            </div>
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors flex items-center gap-2 flex-shrink-0 active:scale-95"
+            >
+              Let's Talk <ArrowRight size={16} />
+            </button>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="flex items-center gap-6 text-neutral-500"
+          >
+            <a href="https://github.com/YASSIRXVHY" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              <Github size={20} />
+            </a>
+            <a href="https://linkedin.com/in/yassir-gattoa-53b9782aa" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              <Linkedin size={20} />
+            </a>
+          </motion.div>
+
+        </div>
+      </motion.div>
     </section>
   );
 };

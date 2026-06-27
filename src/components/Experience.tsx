@@ -1,138 +1,113 @@
-import { Briefcase, GraduationCap, Calendar, Building2, Globe } from 'lucide-react';
-import FadeInSection from './FadeInSection';
+import { Briefcase, GraduationCap, Calendar, Building2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { TracingBeam } from './ui/TracingBeam';
+import { cn } from '../lib/utils';
 
 const Experience = () => {
   const experiences = [
     {
-      icon: Globe,
-      title: 'Founder & Lead Instructor',
+      type: 'work',
+      icon: Briefcase,
+      title: 'Founder & Full-Stack Developer',
       organization: 'Abyssal Academy',
-      period: '2024 - Present',
-      description:
-        'Founded and operate Abyssal Academy, an online English learning platform. Teaching English to students worldwide while managing curriculum development, platform operations, and student success.',
-      highlights: [
-        'Founded and launched Abyssal Academy online platform',
-        'Teaching 200+ students from diverse backgrounds',
-        'Developed comprehensive online curriculum for all levels',
-        'Managing all aspects of the academy operations',
-      ],
-    },
-    {
-      icon: Briefcase,
-      title: 'Software Developer',
-      organization: 'Tech Company',
-      period: '2021 - Present',
-      description:
-        'Developed and maintained web applications using modern JavaScript frameworks. Collaborated with cross-functional teams to deliver high-quality software solutions.',
-      highlights: [
-        'Built responsive web applications with React and TypeScript',
-        'Implemented RESTful APIs and database solutions',
-        'Improved application performance by 40%',
-      ],
-    },
-    {
-      icon: GraduationCap,
-      title: 'Teacher of English',
-      organization: 'Okole Dahabia',
       period: '2025 - Present',
-      description:
-        'Teaching English language skills to diverse student groups. Developed engaging curriculum and assessment methods to enhance student learning outcomes.',
-      highlights: [
-        'Designed comprehensive English language curriculum',
-        'Improved student test scores by 35%',
-        'Mentored over 200 students to language proficiency',
-      ],
+      description: 'Designed and built a full online English learning platform (TypeScript, Next.js, React). Developed an admin dashboard with real-time KPIs, student analytics, and SQL management. Integrated AI tools (ChatGPT/Claude APIs) to automate lesson prep and applied data visualization to monitor academy metrics.',
     },
     {
+      type: 'work',
       icon: Briefcase,
-      title: 'Junior Developer',
-      organization: 'Freelancer',
-      period: '2023 - 2024',
-      description:
-        'Contributed to various web development projects in a fast-paced startup environment. Gained experience in full-stack development and agile methodologies.',
-      highlights: [
-        'Developed features for customer-facing applications',
-        'Participated in code reviews and team meetings',
-        'Learned modern development practices and tools',
-      ],
+      title: 'English Teacher & Digital Educator',
+      organization: 'Okole Dahabia School',
+      period: '2025 - Present',
+      description: 'Deliver curriculum-aligned English lessons to primary students. Integrate AI tools, digital aids, and visual content into instruction for enhanced engagement.',
     },
+    {
+      type: 'work',
+      icon: Briefcase,
+      title: 'Academic Researcher',
+      organization: 'Abdelmalek Essaâdi University',
+      period: '2022 - 2024',
+      description: 'Researched magical realism and postcolonial literature, producing critical academic essays.',
+    },
+    {
+      type: 'education',
+      icon: GraduationCap,
+      title: "Bachelor's - English Literature",
+      organization: 'Abdelmalek Essaâdi University',
+      period: 'Graduated 2026 | Tetouan',
+      description: '',
+    },
+    {
+      type: 'education',
+      icon: GraduationCap,
+      title: 'DEUG - English Studies',
+      organization: 'Abdelmalek Essaâdi University',
+      period: '2022 - 2024 | Tetouan',
+      description: '',
+    },
+    {
+      type: 'education',
+      icon: GraduationCap,
+      title: 'Baccalaureate - Literary Track',
+      organization: 'Abi Abass Sebti High School',
+      period: '2020 - 2021 | Tangier',
+      description: '',
+    }
   ];
 
+
   return (
-    <section id="experience" className="py-24 bg-neutral-50">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="max-w-4xl mx-auto">
-          <FadeInSection>
-            <div className="text-center mb-16">
-              <p className="text-sm tracking-widest uppercase text-neutral-500 mb-4">My journey</p>
-              <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
-                Experience
-              </h2>
-            </div>
-          </FadeInSection>
+    <section id="experience" className="py-32 bg-black relative overflow-hidden border-t border-white/5 z-10">
+      <div className="container-wide section-padding relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <h2 className="text-3xl md:text-5xl font-light text-white mb-6 tracking-tighter">
+            Experience.
+          </h2>
+          <div className="w-16 h-[2px] bg-white/20 rounded-full"></div>
+        </motion.div>
 
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <FadeInSection key={index} delay={index * 100}>
-                <div className="bg-white p-8 border border-neutral-200 hover:border-black transition-colors">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 bg-black text-white flex items-center justify-center flex-shrink-0">
-                      <exp.icon size={24} />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 text-neutral-500 text-sm mb-1">
-                        <Calendar size={14} />
-                        <span>{exp.period}</span>
-                      </div>
-                      <h3 className="text-xl font-bold text-black mb-1">
-                        {exp.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-neutral-600">
-                        <Building2 size={14} />
-                        <p className="text-sm font-medium">{exp.organization}</p>
-                      </div>
-                    </div>
+        <TracingBeam className="px-6 mb-32">
+          <div className="max-w-3xl mx-auto pt-4 relative">
+            {experiences.map((item, index) => (
+              <div key={`content-${index}`} className="mb-16 group">
+                <div className="flex items-start md:items-center flex-col md:flex-row gap-4 md:gap-6 mb-4">
+                  <div className={cn(
+                    "w-12 h-12 flex-shrink-0 rounded-xl flex items-center justify-center border transition-all duration-300",
+                    item.type === 'work' ? "bg-primary-500/10 text-primary-400 border-primary-500/20" : "bg-white/5 text-neutral-400 border-white/10"
+                  )}>
+                    <item.icon size={24} strokeWidth={1.5} />
                   </div>
-
-                  <p className="text-neutral-600 mb-6 leading-relaxed">
-                    {exp.description}
-                  </p>
-
-                  <div className="space-y-2">
-                    {exp.highlights.map((highlight, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <div className="w-1.5 h-1.5 bg-black mt-2 flex-shrink-0"></div>
-                        <p className="text-sm text-neutral-600">{highlight}</p>
-                      </div>
-                    ))}
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-medium text-white tracking-tight">{item.title}</h3>
+                    <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-neutral-500 mt-2">
+                      <span className="flex items-center gap-1.5 bg-white/[0.03] px-3 py-1 rounded-md border border-white/5">
+                        <Building2 size={12} className="text-neutral-400" />
+                        {item.organization}
+                      </span>
+                      <span className="flex items-center gap-1.5 bg-white/[0.03] px-3 py-1 rounded-md border border-white/5">
+                        <Calendar size={12} className="text-neutral-400" />
+                        {item.period}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </FadeInSection>
+                
+                {item.description && (
+                  <div className="text-neutral-400 leading-relaxed text-sm md:text-base md:pl-[72px] mt-4">
+                    {item.description}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
+        </TracingBeam>
 
-          {/* Stats Section */}
-          <FadeInSection delay={500}>
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center p-6 bg-white border border-neutral-200">
-                <div className="text-3xl font-bold text-black mb-1">4+</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider">Years</div>
-              </div>
-              <div className="text-center p-6 bg-white border border-neutral-200">
-                <div className="text-3xl font-bold text-black mb-1">200+</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider">Students</div>
-              </div>
-              <div className="text-center p-6 bg-white border border-neutral-200">
-                <div className="text-3xl font-bold text-black mb-1">15+</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider">Projects</div>
-              </div>
-              <div className="text-center p-6 bg-white border border-neutral-200">
-                <div className="text-3xl font-bold text-black mb-1">1</div>
-                <div className="text-xs text-neutral-500 uppercase tracking-wider">Academy</div>
-              </div>
-            </div>
-          </FadeInSection>
-        </div>
+
       </div>
     </section>
   );

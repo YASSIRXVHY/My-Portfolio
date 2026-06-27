@@ -1,22 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { cn } from '../lib/utils';
 
 interface HeaderProps {
   activeSection: string;
 }
 
 const Header = ({ activeSection }: HeaderProps) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const [visible, setVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+  useMotionValueEvent(scrollYProgress, "change", (current) => {
+    // Check if current is not undefined and is a number
+    if (typeof current === "number") {
+      let direction = current! - scrollYProgress.getPrevious()!;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      if (scrollYProgress.get() < 0.05) {
+        setVisible(true);
+      } else {
+        if (direction < 0) {
+          setVisible(true);
+        } else {
+          setVisible(false);
+          setIsMobileMenuOpen(false); // Close mobile menu when hiding
+        }
+      }
+    }
+  });
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -31,86 +43,112 @@ const Header = ({ activeSection }: HeaderProps) => {
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
-    { id: 'portfolio', label: 'Portfolio' },
+    { id: 'portfolio', label: 'Projects' },
+    { id: 'writing', label: 'Writing' },
+    { id: 'testimonials', label: 'Testimonials' },
     { id: 'contact', label: 'Contact' },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200 py-4'
-          : 'bg-transparent py-6'
-      }`}
-    >
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <button
-            onClick={() => scrollToSection('home')}
-            className={`text-lg font-bold transition-colors ${
-              isScrolled ? 'text-black hover:text-neutral-600' : 'text-white hover:text-neutral-300'
-            }`}
-          >
-            YASSIR GATTOA
-          </button>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`text-sm font-medium transition-colors ${
-                  isScrolled
-                    ? activeSection === item.id
-                      ? 'text-black'
-                      : 'text-gray-600 hover:text-black'
-                    : activeSection === item.id
-                      ? 'text-white'
-                      : 'text-neutral-400 hover:text-white'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            className={`md:hidden w-10 h-10 flex items-center justify-center ${
-              isScrolled ? 'text-black' : 'text-white'
-            }`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            isMobileMenuOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'
-          }`}
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: -100,
+        }}
+        animate={{
+          y: visible ? 0 : -100,
+          opacity: visible ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.2,
+        }}
+        className={cn(
+          "flex max-w-fit fixed top-6 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-navy-900/80 backdrop-blur-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] px-4 py-2 items-center justify-between gap-4 md:gap-8 interactive"
+        )}
+      >
+        {/* Logo */}
+        <button
+          onClick={() => scrollToSection('home')}
+          className="text-lg md:text-xl font-black tracking-tighter text-white hover:text-primary-300 transition-colors pl-2 pr-4 relative z-10"
         >
-          <nav className="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-            {navItems.map((item) => (
+          YASSIR<span className="text-primary-500">.</span>
+        </button>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
-                  activeSection === item.id
-                    ? 'text-black bg-gray-50'
-                    : 'text-gray-600 hover:text-black hover:bg-gray-50'
-                }`}
+                className={cn(
+                  "relative text-sm font-semibold px-4 py-2 rounded-full transition-colors",
+                  isActive ? "text-white" : "text-white/70 hover:text-white"
+                )}
               >
+                {isActive && (
+                  <motion.span
+                    layoutId="pill"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="absolute inset-0 bg-primary-600 rounded-full -z-10"
+                  />
+                )}
                 {item.label}
               </button>
-            ))}
-          </nav>
-        </div>
-      </div>
-    </header>
+            );
+          })}
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden w-10 h-10 flex items-center justify-center rounded-full text-white bg-white/10 hover:bg-white/20 transition-colors relative z-10"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <AnimatePresence mode="wait">
+            {isMobileMenuOpen ? (
+              <motion.div key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }}>
+                <X size={20} />
+              </motion.div>
+            ) : (
+              <motion.div key="menu" initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: -90 }}>
+                <Menu size={20} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </button>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              className="absolute top-full left-0 right-0 mt-4 p-2 rounded-2xl bg-navy-900/95 backdrop-blur-xl border border-white/10 shadow-2xl md:hidden overflow-hidden"
+            >
+              <nav className="flex flex-col gap-1">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={cn(
+                      "block w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all",
+                      activeSection === item.id
+                        ? "text-white bg-primary-600"
+                        : "text-white/70 hover:text-white hover:bg-white/10"
+                    )}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
