@@ -1,154 +1,137 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface HeaderProps {
   activeSection: string;
 }
 
+const navItems = [
+  { id: 'about', label: 'About' },
+  { id: 'teaching', label: 'Teaching' },
+  { id: 'education', label: 'Education' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'writing', label: 'Writing' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) element.scrollIntoView({ behavior: 'smooth' });
+};
+
+/** Live local time in Tangier (Africa/Casablanca). */
+const useLocalTime = () => {
+  const [time, setTime] = useState('');
+  useEffect(() => {
+    const fmt = new Intl.DateTimeFormat('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'Africa/Casablanca',
+    });
+    const tick = () => setTime(fmt.format(new Date()));
+    tick();
+    const id = setInterval(tick, 15000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+};
+
 const Header = ({ activeSection }: HeaderProps) => {
-  const { scrollYProgress } = useScroll();
-  const [visible, setVisible] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const time = useLocalTime();
 
-  useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Check if current is not undefined and is a number
-    if (typeof current === "number") {
-      let direction = current! - scrollYProgress.getPrevious()!;
-
-      if (scrollYProgress.get() < 0.05) {
-        setVisible(true);
-      } else {
-        if (direction < 0) {
-          setVisible(true);
-        } else {
-          setVisible(false);
-          setIsMobileMenuOpen(false); // Close mobile menu when hiding
-        }
-      }
-    }
-  });
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
+  const go = (id: string) => {
+    scrollToSection(id);
+    setOpen(false);
   };
 
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'portfolio', label: 'Projects' },
-    { id: 'writing', label: 'Writing' },
-    { id: 'testimonials', label: 'Testimonials' },
-    { id: 'contact', label: 'Contact' },
-  ];
-
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        initial={{
-          opacity: 1,
-          y: -100,
-        }}
-        animate={{
-          y: visible ? 0 : -100,
-          opacity: visible ? 1 : 0,
-        }}
-        transition={{
-          duration: 0.2,
-        }}
-        className={cn(
-          "flex max-w-fit fixed top-6 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-navy-900/80 backdrop-blur-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] px-4 py-2 items-center justify-between gap-4 md:gap-8 interactive"
-        )}
-      >
-        {/* Logo */}
+    <header className="sticky top-0 z-50 bg-paper hairline-b">
+      <div className="container-page flex items-center justify-between gap-6 h-16">
+        {/* Name */}
         <button
-          onClick={() => scrollToSection('home')}
-          className="text-lg md:text-xl font-black tracking-tighter text-white hover:text-primary-300 transition-colors pl-2 pr-4 relative z-10"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="font-display italic font-semibold text-xl sm:text-2xl text-ink tracking-tight hover:text-pen transition-colors"
         >
-          YASSIR<span className="text-primary-500">.</span>
+          Yassir Gattoa
         </button>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => {
-            const isActive = activeSection === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={cn(
-                  "relative text-sm font-semibold px-4 py-2 rounded-full transition-colors",
-                  isActive ? "text-white" : "text-white/70 hover:text-white"
-                )}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="pill"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="absolute inset-0 bg-primary-600 rounded-full -z-10"
-                  />
-                )}
-                {item.label}
-              </button>
-            );
-          })}
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex items-center gap-7" aria-label="Main">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => go(item.id)}
+              className={cn(
+                'font-mono text-[0.68rem] font-medium uppercase tracking-[0.18em] transition-colors pb-0.5 border-b',
+                activeSection === item.id
+                  ? 'text-pen border-pen'
+                  : 'text-ink-soft border-transparent hover:text-ink hover:border-line-strong'
+              )}
+            >
+              {item.label}
+            </button>
+          ))}
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden w-10 h-10 flex items-center justify-center rounded-full text-white bg-white/10 hover:bg-white/20 transition-colors relative z-10"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <AnimatePresence mode="wait">
-            {isMobileMenuOpen ? (
-              <motion.div key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }}>
-                <X size={20} />
-              </motion.div>
-            ) : (
-              <motion.div key="menu" initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: -90 }}>
-                <Menu size={20} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
+        {/* Right side: time + CV */}
+        <div className="hidden lg:flex items-center gap-5">
+          <span className="font-mono text-[0.68rem] tracking-[0.14em] text-ink-faint uppercase">
+            Tangier {time}
+          </span>
+          <a
+            href="./Yassir-Gattoa-CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[0.68rem] font-medium uppercase tracking-[0.18em] text-pen border-b border-pen/50 hover:border-pen hover:bg-pen-wash transition-colors pb-0.5"
+          >
+            CV <ArrowUpRight size={11} className="inline -mt-0.5" />
+          </a>
+        </div>
 
-        {/* Mobile Menu Dropdown */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              className="absolute top-full left-0 right-0 mt-4 p-2 rounded-2xl bg-navy-900/95 backdrop-blur-xl border border-white/10 shadow-2xl md:hidden overflow-hidden"
-            >
-              <nav className="flex flex-col gap-1">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={cn(
-                      "block w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all",
-                      activeSection === item.id
-                        ? "text-white bg-primary-600"
-                        : "text-white/70 hover:text-white hover:bg-white/10"
-                    )}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </AnimatePresence>
+        {/* Mobile toggle */}
+        <button
+          className="lg:hidden w-10 h-10 flex items-center justify-center text-ink"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+        >
+          {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <nav className="lg:hidden bg-paper hairline-t" aria-label="Mobile">
+          <div className="container-page py-6 flex flex-col gap-1">
+            {navItems.map((item, i) => (
+              <button
+                key={item.id}
+                onClick={() => go(item.id)}
+                className="flex items-baseline gap-4 py-3 text-left hairline-t first:border-t-0"
+              >
+                <span className="font-mono text-[0.65rem] text-pen">{String(i + 1).padStart(2, '0')}</span>
+                <span className="font-display text-2xl lowercase text-ink">{item.label}</span>
+              </button>
+            ))}
+            <div className="flex items-center justify-between pt-5 mt-2 hairline-t">
+              <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-ink-faint">
+                Tangier {time}
+              </span>
+              <a
+                href="./Yassir-Gattoa-CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.18em] text-pen"
+              >
+                Download CV <ArrowUpRight size={11} className="inline -mt-0.5" />
+              </a>
+            </div>
+          </div>
+        </nav>
+      )}
+    </header>
   );
 };
 

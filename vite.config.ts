@@ -1,11 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
+// './' keeps asset paths relative, so the same build works on
+// GitHub Pages (sub-path) and on Vercel/Netlify (root domain).
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
-  // Remove this line: base: '/My-Portfolio/',
+  base: './',
 });

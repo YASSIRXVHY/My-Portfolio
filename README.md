@@ -1,165 +1,60 @@
-# My-Portfolio
+# My Portfolio — Yassir Gattoa
 
-## 🚀 Overview
-Welcome to My-Portfolio! This project is a comprehensive portfolio website built using modern web technologies. It showcases my skills and experiences as a programmer and English teacher. The site includes sections for about me, skills, experience, portfolio projects, and contact information.
+The personal website of **Yassir Gattoa**: English teacher in Tangier, Master's student in
+English Language, Culture & Literature at Abdelmalek Essaâdi University (Tétouan), TESOL
+certified by World TESOL Academy, and self-taught web developer.
 
-## ✨ Features
-- **Responsive Design**: Works seamlessly on all devices.
-- **Interactive Elements**: Custom cursor and animated sections.
-- **SEO-Friendly**: Optimized for search engines.
-- **Easy Navigation**: Smooth scrolling and clear section headers.
-- **Dark Mode**: Coming soon!
+## Design
 
-## 🛠️ Tech Stack
-- **Programming Language**: TypeScript
-- **Frameworks & Libraries**:
-  - React
-  - Vite
-  - Tailwind CSS
-  - Lucide React Icons
-- **Tools**:
-  - ESLint
-  - Prettier
-  - TypeScript
-  - Supabase
+A paper-and-ink editorial design — warm cream paper, typewriter-red accents, hand-drawn
+teacher's marks, and self-hosted fonts (**Fraunces**, **Newsreader Variable**, **IBM Plex Mono**).
+No template, no glassmorphism, no stock photos: real facts, real projects, real dates.
 
-## 📦 Installation
+## Tech stack
 
-### Prerequisites
-- Node.js (v14 or later)
-- npm (v6 or later)
+- React 18 + TypeScript + Vite
+- Tailwind CSS 3
+- Framer Motion (quiet reveals only)
+- React Router (HashRouter — works on GitHub Pages out of the box)
+- EmailJS for the contact form
+- Fonts self-hosted via Fontsource
 
-### Quick Start
+## Scripts
+
 ```bash
-# Clone the repository
-git clone https://github.com/YASSIRXVHY/My-Portfolio.git
-
-# Navigate to the project directory
-cd My-Portfolio
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
+npm install       # install dependencies
+npm run dev       # local dev server
+npm run build     # production build → dist/
+npm run typecheck # TypeScript check
+npm run deploy    # build + publish to GitHub Pages (gh-pages)
 ```
 
-### Alternative Installation Methods
-- **Using Yarn**:
-  ```bash
-  yarn install
-  yarn dev
-  ```
+## Deploying
 
-- **Using Docker**:
-  ```bash
-  docker-compose up --build
-  ```
+- **GitHub Pages** (already configured): `npm run deploy` — the `base` is relative (`./`),
+  and routing uses hashes, so it works at `https://yassirxvhy.github.io/My-Portfolio/`
+  with zero server configuration.
+- **Vercel / Netlify**: just point the platform at the repo, build command `npm run build`,
+  output `dist/`. The same build works at a root domain.
 
-## 🎯 Usage
+## Structure
 
-### Basic Usage
-```typescript
-// Import the App component
-import App from './App';
-
-// Render the App component
-ReactDOM.render(<App />, document.getElementById('root'));
+```
+src/
+  components/    # Header, Hero, NowStrip, About, Teaching, Education,
+                 # Projects, Writing, Toolbox, Contact, Footer, marks, Reveal
+  pages/         # Home, ArticleView (writing samples)
+  img/           # portrait.jpg, graduation.jpg (optimized)
+public/
+  Yassir-Gattoa-CV.pdf   # linked from the header & footer
+  favicon.svg
 ```
 
-### Advanced Usage
-- **Customizing the Theme**:
-  - Modify the `tailwind.config.js` file to change colors and styles.
-- **Adding New Sections**:
-  - Create new components in the `src/components` directory and import them into `App.tsx`.
+## Updating content
 
-## 📁 Project Structure
-```
-My-Portfolio/
-├── public/
-│   ├── vite.svg
-│   └── index.html
-├── src/
-│   ├── components/
-│   │   ├── About.tsx
-│   │   ├── Contact.tsx
-│   │   ├── CustomCursor.tsx
-│   │   ├── Experience.tsx
-│   │   ├── FadeInSection.tsx
-│   │   ├── Footer.tsx
-│   │   ├── Header.tsx
-│   │   ├── Hero.tsx
-│   │   ├── Portfolio.tsx
-│   │   ├── Skills.tsx
-│   ├── App.tsx
-│   ├── index.css
-│   └── main.tsx
-├── .gitignore
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-├── vite.config.ts
-└── README.md
-```
-
-## 🔧 Configuration
-- **Environment Variables**:
-  - Create a `.env` file in the root directory to store environment-specific variables.
-- **Configuration Files**:
-  - `tailwind.config.js`: Tailwind CSS configuration.
-  - `vite.config.ts`: Vite configuration.
-  - `tsconfig.app.json`: TypeScript configuration for the application.
-
-## 🤝 Contributing
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -am 'Add some feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Open a pull request.
-
-### Development Setup
-1. Clone the repository.
-2. Install dependencies (`npm install` or `yarn install`).
-3. Start the development server (`npm run dev` or `yarn dev`).
-
-### Code Style Guidelines
-- Follow the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) for JavaScript and TypeScript.
-- Use Prettier for code formatting.
-
-## 📝 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors & Contributors
-- **Yassir Gattoa** - [@YASSIRXVHY](https://github.com/YASSIRXVHY)
-
-## 🐛 Issues & Support
-- Report issues on the [GitHub Issues page](https://github.com/YASSIRXVHY/My-Portfolio/issues).
-- For support, please contact [Yassir Gattoa](mailto:yassirgattoa@gmail.com).
-
-## 🗺️ Roadmap
-- **Upcoming Features**:
-  - Dark Mode
-  - Blog Section
-  - Resume Download
-- **Known Issues**:
-  - [#1](https://github.com/YASSIRXVHY/My-Portfolio/issues/1)
-  - [#2](https://github.com/YASSIRXVHY/My-Portfolio/issues/2)
-- **Future Improvements**:
-  - Performance optimizations
-  - Accessibility enhancements
+Everything factual lives at the top of each component as plain arrays
+(`education`, `certificates`, `projects`, `articles`…). Edit the array, rebuild, redeploy.
 
 ---
 
-**Additional Guidelines:**
-- Use modern markdown features (badges, collapsible sections, etc.)
-- Include practical, working code examples
-- Make it visually appealing with appropriate emojis
-- Ensure all code snippets are syntactically correct for TypeScript
-- Include relevant badges (build status, version, license, etc.)
-- Make installation instructions copy-pasteable
-- Focus on clarity and developer experience
+© Yassir Gattoa · Tangier, Morocco

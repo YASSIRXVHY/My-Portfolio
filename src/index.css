@@ -1,73 +1,192 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Show default cursor on mobile */
-@media (hover: none) and (pointer: coarse) {
-  * {
-    cursor: auto !important;
-  }
-}
+/* ---------------------------------- base ---------------------------------- */
 
-/* Base styles */
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: #000000;
-  color: #FAFAFA;
+  font-family: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+  background-color: #f6f1e6;
+  color: #221d14;
   min-height: 100vh;
-  @apply antialiased selection:bg-primary-500/30 selection:text-white;
+  font-size: 1.075rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-#root {
-  position: relative;
-  z-index: 1;
+::selection {
+  background: #b3392c;
+  color: #f6f1e6;
 }
 
-@layer components {
-  /* Gradient Text */
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
-  }
-  
-  .gradient-text-primary {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  }
+/* Subtle paper grain over the whole page */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-  /* Ultra Minimal Glass Cards */
-  .glass-card {
-    @apply bg-white/[0.02] border border-white/[0.05] backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)];
-  }
+/* --------------------------------- layout --------------------------------- */
 
-  .glass-card-hover {
-    @apply transition-all duration-300 ease-out hover:bg-white/[0.04] hover:border-white/[0.1] hover:-translate-y-1;
-  }
+.container-page {
+  @apply max-w-page mx-auto px-5 sm:px-8 lg:px-12;
+}
 
-  /* Icon Circles */
-  .icon-circle {
-    @apply w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
+/* ------------------------------ typography ------------------------------- */
 
-  .icon-circle:hover {
-    @apply scale-105 border-white/[0.15] bg-white/[0.06];
-  }
+.kicker {
+  @apply font-mono text-[0.68rem] sm:text-xs font-medium uppercase tracking-[0.22em] text-ink-soft;
+}
 
-  /* Section Padding */
-  .section-padding {
-    @apply px-6 sm:px-8 lg:px-12 xl:px-16 2xl:px-24;
-  }
+.headline {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+}
 
-  .container-wide {
-    @apply max-w-[1400px] mx-auto;
+/* --------------------------------- links ---------------------------------- */
+
+.link-ink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(184, 168, 127, 0.8);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.link-ink:hover {
+  color: #b3392c;
+  text-decoration-color: #b3392c;
+}
+
+/* ------------------------------ photo frames ------------------------------ */
+
+.photo-frame {
+  background: #fdfbf5;
+  border: 1px solid #d8cdb6;
+  box-shadow:
+    0 1px 0 rgba(34, 29, 20, 0.06),
+    0 10px 24px -18px rgba(34, 29, 20, 0.45);
+  padding: 10px 10px 0;
+}
+
+.photo-caption {
+  @apply font-mono text-[0.65rem] sm:text-[0.7rem] leading-relaxed text-ink-faint tracking-wide px-1 py-2.5 text-left;
+}
+
+/* ------------------------------ rubber stamp ------------------------------ */
+
+.stamp {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #b3392c;
+  border: 2px solid rgba(179, 57, 44, 0.75);
+  border-radius: 3px 7px 4px 8px / 7px 3px 8px 4px;
+  padding: 0.28rem 0.55rem 0.22rem;
+  transform: rotate(-3deg);
+  opacity: 0.92;
+  white-space: nowrap;
+}
+
+/* ------------------------------ paper cards ------------------------------- */
+
+.paper-card {
+  background: #fbf8f0;
+  border: 1px solid #d8cdb6;
+  box-shadow: 0 1px 0 rgba(34, 29, 20, 0.05);
+}
+
+/* ------------------------------ form fields ------------------------------- */
+
+.field {
+  @apply w-full bg-paper-card border border-line px-4 py-3 text-ink placeholder:text-ink-faint
+    focus:outline-none focus:border-pen focus:ring-1 focus:ring-pen/40 transition-colors;
+  font-family: 'Newsreader Variable', serif;
+  font-size: 1rem;
+}
+
+.field-label {
+  @apply font-mono text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ink-soft mb-2 block;
+}
+
+/* --------------------------- article (prose) ------------------------------ */
+
+.prose-paper {
+  font-family: 'Newsreader Variable', serif;
+  font-size: 1.16rem;
+  line-height: 1.85;
+  color: #33291a;
+}
+.prose-paper h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.65rem;
+  letter-spacing: -0.01em;
+  margin: 2.6rem 0 1rem;
+  color: #221d14;
+}
+.prose-paper p {
+  margin-bottom: 1.35rem;
+}
+.prose-paper blockquote {
+  margin: 2rem 0;
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  border-left: 3px solid #b3392c;
+  font-style: italic;
+  color: #4a4132;
+}
+.prose-paper em {
+  font-style: italic;
+}
+
+/* ------------------------------ misc -------------------------------------- */
+
+.hairline-t {
+  border-top: 1px solid #d8cdb6;
+}
+.hairline-b {
+  border-bottom: 1px solid #d8cdb6;
+}
+
+/* Ruled “ledger” rows used for projects / experience */
+.ledger-row {
+  border-top: 1px solid #d8cdb6;
+  transition: background-color 0.25s ease;
+}
+.ledger-row:last-child {
+  border-bottom: 1px solid #d8cdb6;
+}
+.ledger-row:hover {
+  background-color: rgba(251, 248, 240, 0.9);
+}
+
+/* Highlighter effect behind a word */
+.marker {
+  background-image: linear-gradient(100deg, rgba(239, 223, 155, 0) 0.5%, rgba(239, 223, 155, 0.95) 3%, rgba(239, 223, 155, 0.95) 97%, rgba(239, 223, 155, 0) 99.5%);
+  background-size: 100% 46%;
+  background-position: 0 78%;
+  background-repeat: no-repeat;
+  padding: 0 0.08em;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

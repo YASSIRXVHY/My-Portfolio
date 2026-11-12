@@ -1,126 +1,94 @@
-import { Code, Bot, LineChart, CalendarCheck, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
-import profilePhoto from '../img/profile-new.jpg';
+import Reveal from './Reveal';
+import { SectionHead, MarginNote } from './marks';
+import portrait from '../img/portrait.jpg';
 
-const About = () => {
-  const highlights = [
-    {
-      icon: Code,
-      title: 'Full-Stack Dev',
-      description: 'Building elegant, responsive applications with Next.js, React, and TypeScript',
-    },
-    {
-      icon: Bot,
-      title: 'AI Specialist',
-      description: 'Expert prompt engineering and API integrations (ChatGPT, Claude, Gemini)',
-    },
-    {
-      icon: LineChart,
-      title: 'Data Analyst',
-      description: 'Driving decisions with SQL, Tableau, Power BI, and deep data analysis',
-    },
-    {
-      icon: CalendarCheck,
-      title: 'Virtual Assistant',
-      description: 'Streamlining operations with Notion, Meta Suite, and Calendar Management',
-    },
-  ];
+const About = () => (
+  <section id="about" className="scroll-mt-16">
+    <div className="container-page py-20 sm:py-28">
+      <SectionHead no="01" title="About" note="Tangier → Tétouan" />
 
-  return (
-    <section id="about" className="py-24 relative overflow-hidden bg-black z-10">
-      <div className="container-wide section-padding relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-20"
-          >
-            <h2 className="text-3xl md:text-5xl font-light text-white mb-6 tracking-tighter">
-              About Me.
-            </h2>
-            <div className="w-16 h-[2px] bg-white/20 rounded-full"></div>
-          </motion.div>
+      <div className="grid lg:grid-cols-[5fr_7fr] gap-12 lg:gap-20">
+        {/* Photo — sticks alongside the text on desktop */}
+        <Reveal className="order-2 lg:order-1">
+          <figure className="photo-frame max-w-xs sm:max-w-sm mx-auto lg:mx-0 lg:sticky lg:top-24">
+            <img
+              src={portrait}
+              alt="Yassir Gattoa — studio portrait"
+              className="w-full h-auto block grayscale-[15%] contrast-[1.02]"
+            />
+            <figcaption className="photo-caption flex items-baseline justify-between gap-3">
+              <span>Studio portrait, Tangier — 2025</span>
+              <span className="text-pen">fig. 1</span>
+            </figcaption>
+          </figure>
+        </Reveal>
 
-          <div className="grid md:grid-cols-[2fr_3fr] gap-12 lg:gap-20 items-center mb-20">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100 }}
-              className="relative group w-full max-w-sm mx-auto md:mx-0"
-            >
-              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 aspect-[4/5]">
-                <img
-                  src={profilePhoto}
-                  alt="Yassir Gattoa"
-                  className="w-full h-full object-cover grayscale-[40%] group-hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                />
-              </div>
-            </motion.div>
+        {/* Text */}
+        <div className="order-1 lg:order-2 space-y-6 text-[1.08rem] sm:text-lg leading-[1.85] text-ink-soft">
+          <Reveal>
+            <p className="text-2xl sm:text-[1.7rem] leading-snug text-ink font-display font-normal">
+              I&apos;m from Tangier. I fell in love with English through books, and it has been deciding my
+              life ever since.
+            </p>
+          </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
-              className="space-y-8"
-            >
-              <h3 className="text-2xl md:text-3xl font-medium text-white leading-tight tracking-tight">
-                Developer, Educator & <span className="text-primary-500">AI Specialist</span>
-              </h3>
+          <Reveal delay={0.05}>
+            <p>
+              I completed my <strong className="text-ink font-semibold">Bachelor of Arts in English
+              Literature</strong> from Abdelmalek Essaâdi University (2025 — July 2026), specialising in
+              postcolonial literature, magical realism and discourse analysis — which is a fancy way of
+              saying I spent three years reading{' '}
+              <strong className="text-ink font-semibold">Márquez, Okri and Rushdie</strong> and writing
+              about them. My final-year mémoire was titled{' '}
+              <em className="text-ink">&ldquo;Magical Realism in Ben Okri&apos;s The Famished Road.&rdquo;</em>{' '}
+              Today, I continue that academic journey as a Master&apos;s student in Interdisciplinary
+              Studies in English Language, Culture and Literature in Tétouan.
+            </p>
+          </Reveal>
 
-              <div className="space-y-5 text-neutral-400 leading-relaxed text-base md:text-lg">
-                <p>
-                  I am a Full-stack developer, AI specialist, and data analyst with deep expertise in EdTech, online instruction, and digital operations. 
-                </p>
-                <p>
-                  I'm the <strong className="text-white font-medium">Founder of Abyssal Academy</strong> (2025), where I independently built a complete learning platform using TypeScript, Next.js, SQL, and integrated AI tools.
-                </p>
-                <p>
-                  I am exceptional at communicating with AI systems like ChatGPT and Claude, and I am a fast analytical problem-solver who rapidly identifies and deploys technical solutions. I am currently seeking remote roles where my technical skills and AI fluency can drive significant impact.
-                </p>
-              </div>
+          <Reveal delay={0.1}>
+            <p>
+              On the pedagogical side, I am a <strong className="text-ink font-semibold">Certified
+              TESOL/TEFL English Teacher</strong> (120-hour accredited graduate from World TESOL Academy,
+              UKRLP: 10087431) and EdTech specialist. My classroom background spans primary education
+              (CP to CM2) delivering curriculum-aligned instruction with Canva visual aids and automated
+              AI assessment pipelines (ChatGPT, Claude), alongside customized 1-on-1 international
+              tutoring on <strong className="text-ink font-semibold">Preply</strong> focusing on
+              conversational fluency and pronunciation coaching.
+            </p>
+          </Reveal>
 
+          <Reveal delay={0.15}>
+            <p>
+              To bring structured communicative language teaching to a wider audience, I founded{' '}
               <a
                 href="https://abyssalacademy.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-primary-400 transition-colors group"
+                className="link-ink"
               >
-                Visit Abyssal Academy
-                <ExternalLink size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                Abyssal Academy
               </a>
-            </motion.div>
-          </div>
+              , engineering its proprietary LMS platform from scratch with Next.js, SQL and Vercel.
+              The other half of my life is code: trained at{' '}
+              <strong className="text-ink font-semibold">SoliCode</strong> in Tangier, building real-world
+              tools with React, TypeScript and modern web architectures. Teaching and programming feed
+              each other — every tool I build exists because a learner or classroom needed it.
+            </p>
+          </Reveal>
 
-          {/* Highlights Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="glass-card glass-card-hover p-8 h-full flex flex-col"
-              >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/5 border border-white/10 text-primary-400 mb-6">
-                  <item.icon size={24} strokeWidth={1.5} />
-                </div>
-                <h4 className="text-lg font-medium text-white mb-2 tracking-tight">
-                  {item.title}
-                </h4>
-                <p className="text-sm text-neutral-500 font-normal leading-relaxed">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+          <Reveal delay={0.2}>
+            <p className="hairline-t pt-6">
+              <MarginNote>n.b. — </MarginNote>
+              I designed and coded this page myself. React, TypeScript and Tailwind — no template, no
+              website builder. It&apos;s supposed to feel like a well-kept notebook; that&apos;s the vibe I
+              aim for in my work too.
+            </p>
+          </Reveal>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default About;
