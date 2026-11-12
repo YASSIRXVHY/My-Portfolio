@@ -8,18 +8,6 @@ const Hero = () => {
   return (
     <section id="home" className="relative">
       <div className="container-page pt-10 sm:pt-14 pb-14 sm:pb-20">
-        {/* Masthead rule */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7 }}
-          className="flex flex-wrap items-center justify-between gap-3 hairline-t hairline-b py-3 mb-12 sm:mb-20"
-        >
-          <span className="kicker">Portfolio — N°02</span>
-          <span className="kicker hidden sm:inline">Tangier · Morocco</span>
-          <span className="kicker">Updated Nov 2026</span>
-        </motion.div>
-
         {/* Headline */}
         <h1 className="headline text-ink text-[2.7rem] leading-[1.06] sm:text-6xl md:text-7xl lg:text-[5.4rem] max-w-5xl">
           <motion.span
